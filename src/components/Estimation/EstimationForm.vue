@@ -74,6 +74,22 @@
         ],
       };
     },
+    computed: {
+      estimatedTime() {
+        const value = (
+          Number(this.optimalEstimation)
+          + (Number(this.probableEstimation) * 4)
+          + Number(this.pessimisticEstimation)
+        ) / 6;
+
+        return Number(value).toFixed(1);
+      },
+      standardDeviation() {
+        const value = (Number(this.pessimisticEstimation) - Number(this.optimalEstimation)) / 6;
+
+        return Number(value).toFixed(1);
+      },
+    },
     methods: {
       submit() {
         const newEstimation = {
@@ -81,6 +97,8 @@
           optimalEstimation: this.optimalEstimation,
           probableEstimation: this.probableEstimation,
           pessimisticEstimation: this.pessimisticEstimation,
+          estimatedTime: this.estimatedTime,
+          standardDeviation: this.standardDeviation,
         };
 
         this.$emit('newEstimation', newEstimation);
