@@ -74,32 +74,13 @@
         ],
       };
     },
-    computed: {
-      // TODO: move these computed properties into service class
-      estimatedTime() {
-        const value = (
-          Number(this.optimalEstimation)
-          + (Number(this.probableEstimation) * 4)
-          + Number(this.pessimisticEstimation)
-        ) / 6;
-
-        return Number(value).toFixed(1);
-      },
-      standardDeviation() {
-        const value = (Number(this.pessimisticEstimation) - Number(this.optimalEstimation)) / 6;
-
-        return Number(value).toFixed(1);
-      },
-    },
     methods: {
       submit() {
         const newEstimation = {
           task: this.task,
-          optimalEstimation: this.optimalEstimation,
-          probableEstimation: this.probableEstimation,
-          pessimisticEstimation: this.pessimisticEstimation,
-          estimatedTime: this.estimatedTime,
-          standardDeviation: this.standardDeviation,
+          optimalEstimation: Number(this.optimalEstimation),
+          probableEstimation: Number(this.probableEstimation),
+          pessimisticEstimation: Number(this.pessimisticEstimation),
         };
 
         this.$emit('new-estimation', newEstimation);

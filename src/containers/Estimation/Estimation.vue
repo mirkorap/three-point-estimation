@@ -12,6 +12,7 @@
 </template>
 
 <script>
+  import EstimationCalculator from '@/modules/Estimation/EstimationCalculator';
   import EstimationForm from '@/components/Estimation/EstimationForm.vue';
   import EstimationTable from '@/components/Estimation/EstimationTable.vue';
 
@@ -28,7 +29,11 @@
     },
     methods: {
       addNewEstimation(estimation) {
-        this.estimations.push(estimation);
+        this.estimations.push({
+          ...estimation,
+          estimatedTime: EstimationCalculator.calculateEstimatedTime(estimation),
+          standardDeviation: EstimationCalculator.calculateStandardDeviation(estimation),
+        });
       },
     },
   };
