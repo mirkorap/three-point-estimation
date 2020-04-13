@@ -75,6 +75,7 @@
       };
     },
     computed: {
+      // TODO: move these computed properties into service class
       estimatedTime() {
         const value = (
           Number(this.optimalEstimation)
