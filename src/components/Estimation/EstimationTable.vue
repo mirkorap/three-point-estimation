@@ -18,6 +18,12 @@
 <script>
   export default {
     name: 'EstimationTable',
+    props: {
+      items: {
+        type: Array,
+        default: () => [],
+      },
+    },
     data() {
       return {
         headers: [
@@ -52,7 +58,6 @@
             value: 'standardDeviation',
           },
         ],
-        items: [],
       };
     },
     computed: {

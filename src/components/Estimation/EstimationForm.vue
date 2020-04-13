@@ -102,7 +102,7 @@
           standardDeviation: this.standardDeviation,
         };
 
-        this.$emit('newEstimation', newEstimation);
+        this.$emit('new-estimation', newEstimation);
         this.resetFields();
       },
       resetFields() {

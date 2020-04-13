@@ -3,11 +3,11 @@
     <v-card-title>
       <v-row>
         <v-col cols="12">
-          <estimation-form></estimation-form>
+          <estimation-form @new-estimation="addNewEstimation"></estimation-form>
         </v-col>
       </v-row>
     </v-card-title>
-    <estimation-table></estimation-table>
+    <estimation-table :items="estimations"></estimation-table>
   </v-card>
 </template>
 
@@ -20,6 +20,16 @@
     components: {
       EstimationForm,
       EstimationTable,
+    },
+    data() {
+      return {
+        estimations: [],
+      };
+    },
+    methods: {
+      addNewEstimation(estimation) {
+        this.estimations.push(estimation);
+      },
     },
   };
 </script>
