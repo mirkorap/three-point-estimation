@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import Estimation from '@/components/Estimation/Estimation.vue';
+  import Estimation from '@/containers/Estimation/Estimation.vue';
 
   export default {
     name: 'Home',
