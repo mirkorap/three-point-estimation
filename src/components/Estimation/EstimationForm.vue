@@ -18,7 +18,7 @@
         <v-text-field
             v-model="optimalEstimation"
             :rules="estimationRules"
-            label="Optimal estimation (hours)"
+            label="Optimal estimation (days)"
             required>
         </v-text-field>
       </v-col>
@@ -28,7 +28,7 @@
         <v-text-field
             v-model="probableEstimation"
             :rules="estimationRules"
-            label="Probable estimation (hours)"
+            label="Probable estimation (days)"
             required>
         </v-text-field>
       </v-col>
@@ -38,7 +38,7 @@
         <v-text-field
             v-model="pessimisticEstimation"
             :rules="estimationRules"
-            label="Pessimistic estimation (hours)"
+            label="Pessimistic estimation (days)"
             required>
         </v-text-field>
       </v-col>
