@@ -1,11 +1,16 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="@/assets/logo.png" />
+  <div>
+    <estimation></estimation>
   </div>
 </template>
 
 <script>
-export default {
-  name: "Home"
-};
+  import Estimation from '@/components/Estimation/Estimation.vue';
+
+  export default {
+    name: 'Home',
+    components: {
+      Estimation,
+    },
+  };
 </script>
