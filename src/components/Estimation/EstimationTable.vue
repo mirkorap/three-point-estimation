@@ -1,23 +1,35 @@
 <template>
-  <v-data-table
-      :headers="headers"
-      :items="items">
-    <template #item.actions="{ item }">
-      <v-icon @click="deleteItem(item)">
-        mdi-delete
-      </v-icon>
-    </template>
-    <template #body.append>
-      <tr>
-        <td><strong>Totals</strong></td>
-        <td>{{ totals.optimalEstimation }}</td>
-        <td>{{ totals.probableEstimation }}</td>
-        <td>{{ totals.pessimisticEstimation }}</td>
-        <td>{{ totals.estimatedTime }}</td>
-        <td>{{ totals.standardDeviation }}</td>
-      </tr>
-    </template>
-  </v-data-table>
+  <div>
+    <v-data-table
+        :headers="headers"
+        :items="items"
+        :page.sync="page"
+        :items-per-page="itemsPerPage"
+        hide-default-footer
+        @page-count="changePageCount($event)">
+      <template #item.actions="{ item }">
+        <v-icon @click="deleteItem(item)">
+          mdi-delete
+        </v-icon>
+      </template>
+      <template #body.append>
+        <tr>
+          <td><strong>Totals</strong></td>
+          <td>{{ totals.optimalEstimation }}</td>
+          <td>{{ totals.probableEstimation }}</td>
+          <td>{{ totals.pessimisticEstimation }}</td>
+          <td>{{ totals.estimatedTime }}</td>
+          <td>{{ totals.standardDeviation }}</td>
+        </tr>
+      </template>
+    </v-data-table>
+    <div class="text-center pt-2">
+      <v-pagination
+          v-model="page"
+          :length="pageCount">
+      </v-pagination>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -31,6 +43,9 @@
     },
     data() {
       return {
+        page: 1,
+        pageCount: 0,
+        itemsPerPage: 10,
         headers: [
           {
             text: 'Task',
@@ -93,6 +108,9 @@
       deleteItem(item) {
         const index = this.items.indexOf(item);
         this.items.splice(index, 1);
+      },
+      changePageCount($event) {
+        this.pageCount = $event;
       },
     },
   };
