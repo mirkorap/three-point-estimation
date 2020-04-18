@@ -2,7 +2,12 @@
   <v-data-table
       :headers="headers"
       :items="items">
-    <template slot="body.append">
+    <template #item.actions="{ item }">
+      <v-icon @click="deleteItem(item)">
+        mdi-delete
+      </v-icon>
+    </template>
+    <template #body.append>
       <tr>
         <td><strong>Totals</strong></td>
         <td>{{ totals.optimalEstimation }}</td>
@@ -57,6 +62,11 @@
             sortable: true,
             value: 'standardDeviation',
           },
+          {
+            text: 'Actions',
+            sortable: false,
+            value: 'actions',
+          },
         ],
       };
     },
@@ -77,6 +87,12 @@
           estimatedTime: carry.estimatedTime + Number(item.estimatedTime),
           standardDeviation: carry.standardDeviation + Number(item.standardDeviation),
         }), initialValue);
+      },
+    },
+    methods: {
+      deleteItem(item) {
+        const index = this.items.indexOf(item);
+        this.items.splice(index, 1);
       },
     },
   };
