@@ -1,9 +1,10 @@
 <template>
   <v-app-bar
       app
+      class="d-flex justify-center d-sm-block"
       color="primary"
       dark>
-    <div class="d-flex align-center">
+    <div>
       <v-img
           class="shrink mr-2"
           contain
@@ -13,7 +14,7 @@
       </v-img>
     </div>
     <v-spacer></v-spacer>
-    <div>
+    <div class="hidden-xs-only">
       <v-btn
           v-for="link in links"
           :key="link.name"
