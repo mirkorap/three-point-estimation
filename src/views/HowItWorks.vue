@@ -1,16 +1,15 @@
 <template>
-  <div class="mt-5">
+  <div class="mt-5 px-5">
     <v-row>
-      <v-col class="d-flex justify-center"
-             cols="12">
-        <h1 class="display-1">
+      <v-col cols="12">
+        <h1 class="display-1 text-center">
           Three-point Estimation
         </h1>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col class="px-10 body-1"
-             cols="12">
+
+    <v-row class="body-1">
+      <v-col cols="12">
         <p>
           Developers have to estimate the amount of time required to complete their features. This
           is at the same time a simple and a frightening task because the business depends on them.
@@ -99,9 +98,10 @@
         <p class="body-2">
           <i>
             Source:
-            <a href="https://codingjourneyman.com/2014/10/06/the-clean-coder-estimation/"
-               target="_blank"
-               title="Clean Coder Estimation">
+            <a
+                href="https://codingjourneyman.com/2014/10/06/the-clean-coder-estimation/"
+                target="_blank"
+                title="Clean Coder Estimation">
               Clean Coder Estimation
             </a>
           </i>
