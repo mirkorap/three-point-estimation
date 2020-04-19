@@ -49,6 +49,7 @@
 
     <v-btn
         :disabled="!valid"
+        :class="{'v-btn--block': $vuetify.breakpoint.xsOnly}"
         color="success"
         @click="submit">
       Submit
