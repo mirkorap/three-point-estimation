@@ -14,13 +14,22 @@
         </v-icon>
       </template>
       <template #body.append>
-        <tr>
-          <td><strong>Totals</strong></td>
-          <td>{{ totals.optimalEstimation }}</td>
-          <td>{{ totals.probableEstimation }}</td>
-          <td>{{ totals.pessimisticEstimation }}</td>
-          <td>{{ totals.estimatedTime }}</td>
-          <td>{{ totals.standardDeviation }}</td>
+        <tr :class="{'v-data-table__mobile-table-row': $vuetify.breakpoint.xsOnly}">
+          <td :class="{'v-data-table__mobile-row': $vuetify.breakpoint.xsOnly}">
+            <strong>Totals</strong>
+          </td>
+          <td
+              v-for="header in headers.slice(1, -1)"
+              :key="header.value"
+              :class="{'v-data-table__mobile-row': $vuetify.breakpoint.xsOnly}">
+            <div v-show="$vuetify.breakpoint.xsOnly"
+                 class="v-data-table__mobile-row__header">
+              {{ header.text }}
+            </div>
+            <div :class="{'v-data-table__mobile-row__cell': $vuetify.breakpoint.xsOnly}">
+              {{ totals[header.value] }}
+            </div>
+          </td>
         </tr>
       </template>
     </v-data-table>
