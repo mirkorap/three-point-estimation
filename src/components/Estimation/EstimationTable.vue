@@ -6,7 +6,8 @@
         :page.sync="page"
         :items-per-page="itemsPerPage"
         hide-default-footer
-        @page-count="changePageCount($event)">
+        class="elevation-1"
+        @page-count="updatePageCount($event)">
       <template #item.actions="{ item }">
         <v-icon @click="deleteItem(item)">
           mdi-delete
@@ -23,7 +24,7 @@
         </tr>
       </template>
     </v-data-table>
-    <div class="text-center pt-2">
+    <div :class="['text-center', 'pt-2', {'d-none': !pageCount}]">
       <v-pagination
           v-model="page"
           :length="pageCount">
@@ -109,7 +110,7 @@
         const index = this.items.indexOf(item);
         this.items.splice(index, 1);
       },
-      changePageCount($event) {
+      updatePageCount($event) {
         this.pageCount = $event;
       },
     },
