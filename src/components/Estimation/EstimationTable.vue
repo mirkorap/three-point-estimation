@@ -19,7 +19,7 @@
             <strong>Totals</strong>
           </td>
           <td
-              v-for="header in headers.slice(1, -1)"
+              v-for="header in headers.slice(1)"
               :key="header.value"
               :class="{'v-data-table__mobile-row': $vuetify.breakpoint.xsOnly}">
             <div v-show="$vuetify.breakpoint.xsOnly"
@@ -27,7 +27,17 @@
               {{ header.text }}
             </div>
             <div :class="{'v-data-table__mobile-row__cell': $vuetify.breakpoint.xsOnly}">
-              {{ totals[header.value] }}
+              <template v-if="header.value !== 'actions'">
+                {{ totals[header.value] }}
+              </template>
+              <template v-else>
+                <v-btn
+                    icon
+                    small
+                    @click="exportEstimations()">
+                  <v-icon>mdi-download</v-icon>
+                </v-btn>
+              </template>
             </div>
           </td>
         </tr>
@@ -43,6 +53,8 @@
 </template>
 
 <script>
+  import FileDownloader from '@/utils/FileDownloader';
+
   export default {
     name: 'EstimationTable',
     props: {
@@ -121,6 +133,20 @@
       },
       updatePageCount($event) {
         this.pageCount = $event;
+      },
+      async exportEstimations() {
+        const url = `${process.env.VUE_APP_CLOUD_FUNCTIONS_URL}/exportEstimations`;
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.items),
+        });
+
+        const content = await response.text();
+
+        FileDownloader.download('estimations.csv', content);
       },
     },
   };
