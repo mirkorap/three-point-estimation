@@ -50,7 +50,7 @@
 </template>
 
 <script>
-  import FileDownloader from '@/utils/FileDownloader';
+  import FileDownloader from '@/modules/File/FileDownloader';
 
   export default {
     name: 'EstimationTable',
