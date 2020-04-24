@@ -15,11 +15,8 @@
       </template>
       <template #body.append>
         <tr :class="{'v-data-table__mobile-table-row': $vuetify.breakpoint.xsOnly}">
-          <td :class="{'v-data-table__mobile-row': $vuetify.breakpoint.xsOnly}">
-            <strong>Totals</strong>
-          </td>
           <td
-              v-for="header in headers.slice(1)"
+              v-for="header in headers"
               :key="header.value"
               :class="{'v-data-table__mobile-row': $vuetify.breakpoint.xsOnly}">
             <div v-show="$vuetify.breakpoint.xsOnly"
@@ -28,7 +25,7 @@
             </div>
             <div :class="{'v-data-table__mobile-row__cell': $vuetify.breakpoint.xsOnly}">
               <template v-if="header.value !== 'actions'">
-                {{ totals[header.value] }}
+                <strong>{{ totals[header.value] }}</strong>
               </template>
               <template v-else>
                 <v-btn
@@ -110,6 +107,7 @@
     computed: {
       totals() {
         const initialValue = {
+          task: 'Totals',
           optimalEstimation: 0,
           probableEstimation: 0,
           pessimisticEstimation: 0,
@@ -118,6 +116,7 @@
         };
 
         return this.items.reduce((carry, item) => ({
+          task: 'Totals',
           optimalEstimation: carry.optimalEstimation + item.optimalEstimation,
           probableEstimation: carry.probableEstimation + item.probableEstimation,
           pessimisticEstimation: carry.pessimisticEstimation + item.pessimisticEstimation,
@@ -141,7 +140,7 @@
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(this.items),
+          body: JSON.stringify([...this.items, this.totals]),
         });
 
         const content = await response.text();
