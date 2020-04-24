@@ -22,6 +22,12 @@ const routes = [
     name: 'about-me',
     component: AboutMe,
   },
+  {
+    path: '*',
+    redirect() {
+      return { name: 'home' };
+    },
+  },
 ];
 
 const router = new VueRouter({

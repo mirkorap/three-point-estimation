@@ -3,10 +3,10 @@
     <v-data-table
         :headers="headers"
         :items="items"
-        :page.sync="page"
         :items-per-page="itemsPerPage"
-        hide-default-footer
+        :page.sync="page"
         class="elevation-1"
+        hide-default-footer
         @page-count="updatePageCount($event)">
       <template #item.actions="{ item }">
         <v-icon @click="deleteItem(item)">
@@ -15,19 +15,27 @@
       </template>
       <template #body.append>
         <tr :class="{'v-data-table__mobile-table-row': $vuetify.breakpoint.xsOnly}">
-          <td :class="{'v-data-table__mobile-row': $vuetify.breakpoint.xsOnly}">
-            <strong>Totals</strong>
-          </td>
           <td
-              v-for="header in headers.slice(1, -1)"
+              v-for="header in headers"
               :key="header.value"
               :class="{'v-data-table__mobile-row': $vuetify.breakpoint.xsOnly}">
-            <div v-show="$vuetify.breakpoint.xsOnly"
-                 class="v-data-table__mobile-row__header">
+            <div
+                v-show="$vuetify.breakpoint.xsOnly"
+                class="v-data-table__mobile-row__header">
               {{ header.text }}
             </div>
             <div :class="{'v-data-table__mobile-row__cell': $vuetify.breakpoint.xsOnly}">
-              {{ totals[header.value] }}
+              <template v-if="header.value !== 'actions'">
+                <strong>{{ totals[header.value] }}</strong>
+              </template>
+              <template v-else>
+                <v-btn
+                    icon
+                    small
+                    @click="exportEstimations()">
+                  <v-icon>mdi-download</v-icon>
+                </v-btn>
+              </template>
             </div>
           </td>
         </tr>
@@ -43,6 +51,8 @@
 </template>
 
 <script>
+  import FileDownloader from '@/modules/File/FileDownloader';
+
   export default {
     name: 'EstimationTable',
     props: {
@@ -98,6 +108,7 @@
     computed: {
       totals() {
         const initialValue = {
+          task: 'Totals',
           optimalEstimation: 0,
           probableEstimation: 0,
           pessimisticEstimation: 0,
@@ -106,11 +117,12 @@
         };
 
         return this.items.reduce((carry, item) => ({
-          optimalEstimation: carry.optimalEstimation + Number(item.optimalEstimation),
-          probableEstimation: carry.probableEstimation + Number(item.probableEstimation),
-          pessimisticEstimation: carry.pessimisticEstimation + Number(item.pessimisticEstimation),
-          estimatedTime: carry.estimatedTime + Number(item.estimatedTime),
-          standardDeviation: carry.standardDeviation + Number(item.standardDeviation),
+          task: 'Totals',
+          optimalEstimation: carry.optimalEstimation + item.optimalEstimation,
+          probableEstimation: carry.probableEstimation + item.probableEstimation,
+          pessimisticEstimation: carry.pessimisticEstimation + item.pessimisticEstimation,
+          estimatedTime: carry.estimatedTime + item.estimatedTime,
+          standardDeviation: carry.standardDeviation + item.standardDeviation,
         }), initialValue);
       },
     },
@@ -121,6 +133,20 @@
       },
       updatePageCount($event) {
         this.pageCount = $event;
+      },
+      async exportEstimations() {
+        const url = `${process.env.VUE_APP_CLOUD_FUNCTIONS_URL}/exportEstimations`;
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify([...this.items, this.totals]),
+        });
+
+        const content = await response.text();
+
+        FileDownloader.download('estimations.csv', content);
       },
     },
   };
