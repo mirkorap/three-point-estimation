@@ -118,11 +118,11 @@
         };
 
         return this.items.reduce((carry, item) => ({
-          optimalEstimation: carry.optimalEstimation + Number(item.optimalEstimation),
-          probableEstimation: carry.probableEstimation + Number(item.probableEstimation),
-          pessimisticEstimation: carry.pessimisticEstimation + Number(item.pessimisticEstimation),
-          estimatedTime: carry.estimatedTime + Number(item.estimatedTime),
-          standardDeviation: carry.standardDeviation + Number(item.standardDeviation),
+          optimalEstimation: carry.optimalEstimation + item.optimalEstimation,
+          probableEstimation: carry.probableEstimation + item.probableEstimation,
+          pessimisticEstimation: carry.pessimisticEstimation + item.pessimisticEstimation,
+          estimatedTime: carry.estimatedTime + item.estimatedTime,
+          standardDeviation: carry.standardDeviation + item.standardDeviation,
         }), initialValue);
       },
     },
