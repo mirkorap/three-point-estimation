@@ -3,10 +3,10 @@
     <v-data-table
         :headers="headers"
         :items="items"
-        :page.sync="page"
         :items-per-page="itemsPerPage"
-        hide-default-footer
+        :page.sync="page"
         class="elevation-1"
+        hide-default-footer
         @page-count="updatePageCount($event)">
       <template #item.actions="{ item }">
         <v-icon @click="deleteItem(item)">
@@ -19,8 +19,9 @@
               v-for="header in headers"
               :key="header.value"
               :class="{'v-data-table__mobile-row': $vuetify.breakpoint.xsOnly}">
-            <div v-show="$vuetify.breakpoint.xsOnly"
-                 class="v-data-table__mobile-row__header">
+            <div
+                v-show="$vuetify.breakpoint.xsOnly"
+                class="v-data-table__mobile-row__header">
               {{ header.text }}
             </div>
             <div :class="{'v-data-table__mobile-row__cell': $vuetify.breakpoint.xsOnly}">

@@ -37,9 +37,9 @@
           cols="12"
           sm="auto">
         <v-btn
+            :href="link.url"
             block
             color="primary"
-            :href="link.url"
             outlined
             target="_blank">
           <v-icon>{{ link.icon }}</v-icon>

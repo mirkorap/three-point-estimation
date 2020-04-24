@@ -4,8 +4,8 @@
       <v-col cols="12">
         <v-text-field
             v-model="task"
-            :rules="taskRules"
             :counter="30"
+            :rules="taskRules"
             label="Task"
             required>
         </v-text-field>
@@ -48,8 +48,8 @@
     </v-row>
 
     <v-btn
-        :disabled="!valid"
         :class="{'v-btn--block': $vuetify.breakpoint.xsOnly}"
+        :disabled="!valid"
         color="success"
         @click="submit">
       Submit
