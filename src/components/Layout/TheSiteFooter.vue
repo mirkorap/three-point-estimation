@@ -2,7 +2,13 @@
   <v-footer class="font-weight-medium mt-8">
     <v-row class="text-center hidden-xs-only">
       <v-col cols="12">
-        {{ new Date().getFullYear() }} — <strong>Three-point Estimation</strong>
+        {{ new Date().getFullYear() }} —
+        <a
+            href="https://github.com/mirkorap/three-point-estimation"
+            rel="noopener"
+            target="_blank">
+          <strong>Three-point Estimation</strong>
+        </a>
       </v-col>
     </v-row>
 

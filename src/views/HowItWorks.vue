@@ -100,6 +100,7 @@
             Source:
             <a
                 href="https://codingjourneyman.com/2014/10/06/the-clean-coder-estimation/"
+                rel="noopener"
                 target="_blank"
                 title="Clean Coder Estimation">
               Clean Coder Estimation
