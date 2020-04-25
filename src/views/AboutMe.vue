@@ -41,6 +41,7 @@
             block
             color="primary"
             outlined
+            rel="noopener"
             target="_blank">
           <v-icon>{{ link.icon }}</v-icon>
           {{ link.text }}

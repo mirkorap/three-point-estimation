@@ -32,6 +32,7 @@
                 <v-btn
                     icon
                     small
+                    title="Export estimations"
                     @click="exportEstimations()">
                   <v-icon>mdi-download</v-icon>
                 </v-btn>
@@ -152,6 +153,10 @@
   };
 </script>
 
-<style scoped>
+<style lang="scss">
+  @import '~vuetify/src/styles/styles.sass';
 
+  .v-data-table__empty-wrapper td {
+    color: map-get($shades, 'black');
+  }
 </style>
